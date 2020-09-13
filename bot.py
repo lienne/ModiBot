@@ -7,7 +7,7 @@ from discord.ext import commands
 import builtins
 
 bot = commands.Bot(command_prefix = '!')
-bot.remove_command("help")
+bot.remove_command('help')
 builtins.bot = bot
 
 load_dotenv()
@@ -38,8 +38,12 @@ for filename in os.listdir('./cogs'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 
 @bot.event
-async def on_ready():
+async def change_presence():
     await bot.change_presence(status = discord.Status.online, activity = discord.Game('with the discord API!'))
+
+@bot.event
+async def on_ready():
+    # await bot.change_presence(status = discord.Status.online, activity = discord.Game('with the discord API!'))
     print(f'{bot.user.name} has joined the chat!')
 
 bot.run(TOKEN)

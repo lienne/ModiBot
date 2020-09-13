@@ -11,17 +11,31 @@ class Roles(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @bot.event
-    async def on_raw_reaction_add(payload):
+    roles_map = {
+        # Format:
+        # 'emoji' : 'rolename'
+        'smugcat4' : 'trans',
+        'catscream' : 'GC',
+        'uwuMadSad' : 'she/her',
+        'thisisfine' : 'he/him',
+        'pikathonk' : 'they/them',
+        'bigbrain' : 'what/ever'
+    }
+
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, payload):
+        if payload.guild_id is None:
+            return
+        
         message_id = payload.message_id
-        if message_id == MSGID:
+        role = None
+
+        if message_id == int(MSGID):
             guild_id = payload.guild_id
             guild = discord.utils.find(lambda g : g.id == guild_id, bot.guilds)
 
-            if payload.emoji.name == 'rooDevil':
-                role = discord.utils.get(guild.roles, name = 'manager')
-            elif payload.emoji.name == 'smugcat4':
-                role = discord.utils.get(guild.roles, name = 'trans')
+            if payload.emoji.name in self.roles_map:
+                role = discord.utils.get(guild.roles, name = self.roles_map[payload.emoji.name])
             else:
                 role = discord.utils.get(guild.roles, name = payload.emoji.name)
             
@@ -34,17 +48,20 @@ class Roles(commands.Cog):
                 print('Role not found.')
 
 
-    @bot.event
-    async def on_raw_reaction_remove(payload):
+    @commands.Cog.listener()
+    async def on_raw_reaction_remove(self, payload):
+        if payload.guild_id is None:
+            return
+
         message_id = payload.message_id
-        if message_id == MSGID:
+        role = None
+
+        if message_id == int(MSGID):
             guild_id = payload.guild_id
             guild = discord.utils.find(lambda g : g.id == guild_id, bot.guilds)
 
-            if payload.emoji.name == 'rooDevil':
-                role = discord.utils.get(guild.roles, name = 'manager')
-            elif payload.emoji.name == 'smugcat4':
-                role = discord.utils.get(guild.roles, name = 'trans')
+            if payload.emoji.name in self.roles_map:
+                role = discord.utils.get(guild.roles, name = self.roles_map[payload.emoji.name])
             else:
                 role = discord.utils.get(guild.roles, name = payload.emoji.name)
             

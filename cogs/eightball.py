@@ -16,16 +16,17 @@ class EightBall(commands.Cog):
         if question == None:
             await ctx.send("You have to ask a question!")
         else:
-            responses = ['The stars will most definitely grant your wish!',
-                        'The stars in the milky way are blinking in a decidedly good fashion!',
-                        '01111001 01100101 01110011',
-                        'You may rely on it.',
-                        'Concentrate and ask again!',
-                        'Beep boop, cannot predict now.',
-                        'My hacking sources say not likely!',
-                        '01101110 01101111',
-                        'Outlook not so good!',
-                        'Don\'t count on it.'
+            responses = [
+                'The stars will most definitely grant your wish!',
+                'The stars in the milky way are blinking in a decidedly good fashion!',
+                '01111001 01100101 01110011',
+                'You may rely on it.',
+                'Concentrate and ask again!',
+                'Beep boop, cannot predict now.',
+                'My hacking sources say not likely!',
+                '01101110 01101111',
+                'Outlook not so good!',
+                'Don\'t count on it.'
             ]
 
             response = random.choice(responses)
