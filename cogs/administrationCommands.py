@@ -6,6 +6,24 @@ class AdministrationCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    # Mute
+    @commands.command()
+    @commands.guild_only()
+    @commands.has_permissions(manage_roles = True)
+    async def mute(self, ctx, member: discord.Member, reason = None):
+        muted = discord.utils.get(ctx.guild.roles, name="Muted")
+
+        await member.add_roles(muted)
+        await ctx.send(f'{member.mention} has been muted.')
+
+    # Unmute
+    @commands.command()
+    @commands.guild_only()
+    @commands.has_permissions(manage_roles = True)
+    async def unmute(self, ctx, member: discord.Member):
+        await member.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))
+        await ctx.send(f'{member.mention} has been unmuted.')
+
     # Kick
     @commands.command()
     @commands.guild_only()
@@ -19,10 +37,13 @@ class AdministrationCommands(commands.Cog):
         if reason is None:
             reason = f'Action done by {ctx.author} (ID: {ctx.author.id})'
 
-        await ctx.guild.kick(member, reason = reason)
-        embed = discord.Embed(description = ":white_check_mark: **%s** has been kicked."%member, color=0x00ff00)
-        # await ctx.send(f'Kicked {member}. {reason}.')
-        return await ctx.send(embed=embed)
+        try:
+            await ctx.guild.kick(member, reason = reason)
+            embed = discord.Embed(description = ":white_check_mark: **%s** has been kicked."%member, color=0x00ff00)
+            # await ctx.send(f'Kicked {member}. {reason}.')
+            return await ctx.send(embed=embed)
+        except discord.Forbidden:
+            return await ctx.send("Are you trying to ban someone higher than the bot?")
 
     # Ban
     @commands.command()
@@ -36,11 +57,17 @@ class AdministrationCommands(commands.Cog):
 
         if reason is None:
             reason = f'Action done by {ctx.author} (ID:{ctx.author.id})'
+
+        if not member:
+            return await ctx.send("You must specify a user.")
         
-        await ctx.guild.ban(member, reason = reason)
-        embed = discord.Embed(description = ":white_check_mark: **%s** has been banned."%member, color=0x00ff00)
-        # await ctx.send(f'Banned {member}. {reason}.')
-        return await ctx.send(embed=embed)
+        try:
+            await ctx.guild.ban(member, reason = reason)
+            embed = discord.Embed(description = ":white_check_mark: **%s** has been banned."%member, color=0x00ff00)
+            # await ctx.send(f'Banned {member}. {reason}.')
+            return await ctx.send(embed=embed)
+        except discord.Forbidden:
+            return await ctx.send("Are you trying to ban someone higher than the bot?")
 
     #Multiban
     @commands.command()

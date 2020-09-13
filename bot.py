@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from discord.ext import commands
 import builtins
 
-bot = commands.Bot(command_prefix = '!')
+bot = commands.Bot(command_prefix = '.')
 bot.remove_command('help')
 builtins.bot = bot
 
@@ -18,6 +18,7 @@ logger = logging.getLogger('discord')
 logger.setLevel(logging.ERROR)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s: %(message)s'))
+logger.addHandler(handler)
 
 @bot.command()
 async def load(ctx, extension):

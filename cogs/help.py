@@ -20,6 +20,7 @@ class Help(commands.Cog):
         embed.add_field(name='!vibe', value='Reads a user\'s vibe. If no user is tagged, reads the author\'s vibe.', inline=False)
         embed.add_field(name='!whois', value='Displays the specified user\'s info. If no user is tagged, displays the author\'s info.', inline=False)
         embed.add_field(name='!stats', value='Displays server info.', inline=False)
+        embed.add_field(name='!weather', value='Displays specified city\'s current weather.')
 
         await ctx.send(embed=embed)
         
