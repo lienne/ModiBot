@@ -2,8 +2,6 @@ import discord
 from discord.ext import commands
 import os
 from dotenv import load_dotenv
-import requests
-from requests import get
 import asyncio
 import aiohttp
 

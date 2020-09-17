@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from discord.ext import commands
 import builtins
 
-bot = commands.Bot(command_prefix = '.')
+bot = commands.Bot(command_prefix = '.', activity = discord.Game('with the discord API!'))
 bot.remove_command('help')
 builtins.bot = bot
 
@@ -38,9 +38,9 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 
-@bot.event
-async def change_presence():
-    await bot.change_presence(status = discord.Status.online, activity = discord.Game('with the discord API!'))
+# @bot.event
+# async def change_presence():
+#     await bot.change_presence(status = discord.Status.online, activity = discord.Game('with the discord API!'))
 
 @bot.event
 async def on_ready():
