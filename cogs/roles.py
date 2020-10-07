@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-MSGID = os.getenv('TRUSTED_ROLES_MSG_ID')
+MSGID = os.getenv('KH_MSG_ID')
 
 class Roles(commands.Cog):
 
@@ -14,12 +14,22 @@ class Roles(commands.Cog):
     roles_map = {
         # Format:
         # 'emoji' : 'rolename'
-        'smugcat4' : 'trans',
-        'catscream' : 'GC',
-        'uwuMadSad' : 'she/her',
-        'thisisfine' : 'he/him',
-        'pikathonk' : 'they/them',
-        'bigbrain' : 'what/ever'
+        "👔": "OPS",
+        "python": "Python",
+        "java": "Java",
+        "clang": "CLang",
+        "cplusplus": "C++",
+        "csharp": "C#",
+        "javascript": "JavaScript",
+        "htmlcss": "HTML/CSS",
+        "rust": "Rust",
+        "lua": "Lua",
+        "linux": "Linux",
+        "windows": "Windows",
+        "macos": "MacOS",
+        "math": "Math",
+        "👩‍🔬": "Physics",
+        "knighthacks": "knighthacks"
     }
 
     @commands.Cog.listener()
@@ -43,7 +53,7 @@ class Roles(commands.Cog):
                 member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
                 if member is not None:
                     await member.add_roles(role)
-                    print('Done.')
+                    print('Role assignment: Done.')
             else:
                 print('Role not found.')
 
@@ -69,7 +79,7 @@ class Roles(commands.Cog):
                 member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
                 if member is not None:
                     await member.remove_roles(role)
-                    print('Done.')
+                    print('Role removal: Done.')
             else:
                 print('Role not found.')
 

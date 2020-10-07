@@ -1,16 +1,29 @@
 import discord
 from discord.ext import commands
+import asyncio
 
 class AdministrationCommands(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
 
+    """
+        TO DO:
+        Send "missing permissions" message when member who lacks permissions tries these commands.
+        Log these events to logging channel.
+        Find a better way to delete bot "deleted x msgs" confirmation msg.
+    """
+
     # Mute
     @commands.command()
     @commands.guild_only()
     @commands.has_permissions(manage_roles = True)
     async def mute(self, ctx, member: discord.Member, reason = None):
+        """
+        Mutes a member.
+        In order for this to work, the bot must have manage roles permissions.
+        To use this command you must have manage roles permission.
+        """
         muted = discord.utils.get(ctx.guild.roles, name="Muted")
 
         await member.add_roles(muted)
@@ -21,6 +34,11 @@ class AdministrationCommands(commands.Cog):
     @commands.guild_only()
     @commands.has_permissions(manage_roles = True)
     async def unmute(self, ctx, member: discord.Member):
+        """
+        Unmutes a member.
+        In order for this to work, the bot must have manage roles permissions.
+        To use this command you must have manage roles permission.
+        """
         await member.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))
         await ctx.send(f'{member.mention} has been unmuted.')
 
@@ -29,7 +47,8 @@ class AdministrationCommands(commands.Cog):
     @commands.guild_only()
     @commands.has_permissions(kick_members = True)
     async def kick(self, ctx, member : discord.Member, *, reason = None):
-        """Kicks a member from the server.
+        """
+        Kicks a member from the server.
         In order for this to work, the bot must have Kick Member permissions.
         To use this command you must have Kick Members permission.
         """
@@ -50,7 +69,8 @@ class AdministrationCommands(commands.Cog):
     @commands.guild_only()
     @commands.has_permissions(ban_members = True)
     async def ban(self, ctx, member : discord.Member, *, reason = None):
-        """Bans a member from the server.
+        """
+        Bans a member from the server.
         In order for this to work, the bot must have Ban Member permissions.
         To use this command you must have Ban Members permission.
         """
@@ -74,7 +94,8 @@ class AdministrationCommands(commands.Cog):
     @commands.guild_only()
     @commands.has_permissions(ban_members = True)
     async def multiban(self, ctx, members : commands.Greedy[discord.Member], *, reason = None):
-        """Bans multiple members from the server.
+        """
+        Bans multiple members from the server.
         This only works through banning via ID.
         In order for this to work, the bot must have Ban Member permissions.
         To use this command you must have Ban Members permission.
@@ -105,8 +126,9 @@ class AdministrationCommands(commands.Cog):
     @commands.guild_only()
     @commands.has_permissions(ban_members=True)
     async def unban(self, ctx, userID, reason = None):
-        """Unbans a member from the server.
-        This only works through banning via ID.
+        """
+        Unbans a member from the server.
+        This only works through unbanning via ID.
         In order for this to work, the bot must have Ban Member permissions.
         To use this command you must have Ban Members permissions.
         """
@@ -134,8 +156,15 @@ class AdministrationCommands(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(manage_messages = True)
     async def clear(self, ctx, amount = 0):
+        """
+        Clears specified number of messages.
+        In order for this to work, the bot must have manage messages permissions.
+        To use this command you must have manage messages permissions.
+        """
         await ctx.channel.purge(limit = amount + 1)
         await ctx.send(f'Deleted {amount} messages.')
+        await asyncio.sleep(1)
+        await ctx.channel.purge(limit = 1)
 
 # Connect cog to bot
 def setup(bot):

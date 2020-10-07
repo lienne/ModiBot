@@ -12,7 +12,7 @@ class Fact(commands.Cog):
 
     @commands.command()
     async def fact(self, ctx):
-        id = random.randint(0, 1491)
+        id = random.randint(0, 1490)
         complete_url = 'http://www.randomfactgenerator.net/?id=' + str(id)
 
         if id == 1490:
@@ -30,10 +30,6 @@ class Fact(commands.Cog):
                     embed = discord.Embed(color=0x7ce4f7, timestamp=ctx.message.created_at)
                     embed.add_field(name=f'Fact #{id}:', value=fact.text.split('\n')[0])
                     await ctx.send(embed=embed)
-                    # await ctx.send(f'Fact #{id}: ' + fact.text.split('\n')[0])
-                    
-
-        print(id)
 
 def setup(bot):
     bot.add_cog(Fact(bot))
