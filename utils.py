@@ -1,3 +1,8 @@
+'''
+Credit for this code goes to Aadi, from VandyHacks!
+Check him out: https://github.com/aadibajpai
+'''
+
 from asyncio import TimeoutError
 
 # emoji reactions
