@@ -38,7 +38,8 @@ class KHRoles(commands.Cog):
         "react": "React",
         "gcp": "GCP",
         "azure": "Azure",
-        "aws": "AWS"
+        "aws": "AWS",
+        "unity": "Unity"
     }
 
     @commands.Cog.listener()

@@ -11,12 +11,12 @@ class WelcomeMsg(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @bot.event
+    @commands.Cog.listener()
     async def on_member_join(self, member):
         new_user_msg = """
         Welcome to Knight Hacks 2020! We're excited that you're here!
 
-To check in, please **reply to this DM** with the command `!checkin <email you used to register>`.
+To check in, please **reply to this DM** with the command `!checkin <email you used to register>` (Do not include the < >).
 
 Sponsors, mentors, and judges, please message an organizer to be granted the appropriate permissions.
 
@@ -37,6 +37,12 @@ Good luck, have fun, and we can't wait to see what you build!
 
     @commands.command()
     async def sendwelcomemsg(self, ctx):
+        is_owner = await self.bot.is_owner(ctx.author)
+        
+        if not is_owner:
+            await ctx.author.send("You do not have permissions for this command.")
+            return
+            
         welcome_msg = """
         Welcome to Knight Hacks 2020! We're excited that you're here!
 

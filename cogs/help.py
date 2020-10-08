@@ -17,7 +17,7 @@ class Help(commands.Cog):
         embed.add_field(name='when', value='Time until KnightHacks starts / ends.', inline=False)
         # embed.add_field(name='where', value='Important hackathon links.', inline=False)
         # embed.add_field(name='how', value='Hacker guide.', inline=False)
-        # embed.add_field(name='why', value='', inline=False)
+        embed.add_field(name='why', value='', inline=False)
         # embed.add_field(name='', value='', inline=False)
         embed.add_field(name='coinflip / flip', value='Flips a coin.', inline=False)
         embed.add_field(name='diceroll / roll / dice', value='Rolls a die.', inline=False)
