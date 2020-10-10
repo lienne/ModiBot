@@ -16,7 +16,7 @@ class WelcomeMsg(commands.Cog):
         new_user_msg = """
         Welcome to Knight Hacks 2020! We're excited that you're here!
 
-To check in, please **reply to this DM** with the command `!checkin <email you used to register>` (Do not include the < >).
+To check in, please **reply to this DM** with the command `!checkin youremail@email.com` to be assigned the Hacker role. Checking in will only work if you have RSVP'd, so make sure to do that before trying to check in!
 
 Sponsors, mentors, and judges, please message an organizer to be granted the appropriate permissions.
 
@@ -27,13 +27,16 @@ Good luck, have fun, and we can't wait to see what you build!
 
         channel = self.bot.get_channel(int(LOGGING_CHANNEL))
 
-        await channel.send("User " + member.display_name + " joined the server.")
+        embed = discord.Embed(description = "User " + member.mention + " joined the server.", color=0x00ff00)
+        await channel.send(embed = embed)
 
         try:
+            embed = discord.Embed(description = "Sent DM to " + member.mention, color=0x00ff00)
             await member.send(new_user_msg)
-            await channel.send("Sent DM to " + member.display_name)
+            await channel.send(embed = embed)
         except:
-            await channel.send("Couldn't send welcome DM to " + member.display_name)
+            embed = discord.Embed(description = "Couldn't send welcome DM to " + member.mention, color=0xff0000)
+            await channel.send(embed = embed)
 
     @commands.command()
     async def sendwelcomemsg(self, ctx):
@@ -46,7 +49,9 @@ Good luck, have fun, and we can't wait to see what you build!
         welcome_msg = """
         Welcome to Knight Hacks 2020! We're excited that you're here!
 
-To check in, please **send a Direct Message to the bot** (that's me, Lancelot!) with the command `!checkin <email you used to register>`.
+The Club server is currently closed for the hackathon, so only Knight Hacks participants are allowed in for the weekend. Don't worry, the server will be re-opened afterwards!
+
+To check in for the event, please **send a Direct Message to the bot** (that's me, Lancelot!) with the command `!checkin youremail@email.com` to be assigned the Hacker role. Checking in will only work if you have RSVP'd, so make sure to do that before trying to check in!
 
 Sponsors, mentors, and judges, please message an organizer to be granted the appropriate permissions.
 

@@ -12,12 +12,22 @@ class KnightHacks(commands.Cog):
         await ctx.send("closed source for now bb")
 
     @commands.command()
-    async def why(self, ctx):
-        await ctx.send("<:yeehaw:762850304781189161>")
+    async def where(self, ctx):
+        await ctx.send("right here :) \n**hopin:** <https://hopin.to/events/knight-hacks> "
+                       "\n**day of:** <https://live.knighthacks.org/> "
+                       "\n**hacker guide:** <https://www.knighthacks.org/guide> "
+                       "\n**devpost:** <https://knight-hacks-2020-online.devpost.com/> ")
 
     @commands.command()
-    async def how(self, ctx):
-        await ctx.send("Hacker guide link coming soon.")
+    async def how(self, ctx, *, text = None):
+        if text is not None and text.lower() == 'is lancelot':
+            await ctx.send('awee thank you for asking!! <3')
+
+        await ctx.send("<https://www.knighthacks.org/guide>")
+
+    @commands.command()
+    async def why(self, ctx):
+        await ctx.send("<:yeehaw:762850304781189161>")
 
     @commands.command()
     async def what(self, ctx):
@@ -28,7 +38,8 @@ class KnightHacks(commands.Cog):
         responses = [
             '...let the dogs out! WHO WHO WHO WHO WHO!',
             '...stole the cookie from my cookie jar?',
-            '...ate my ramen?!'
+            '...ate my ramen?!',
+            '...likes shorts? I like shorts!'
         ]
         
         response = random.choice(responses)

@@ -34,23 +34,30 @@ class CheckIn(commands.Cog):
                         member = guild.get_member(ctx.author.id)
 
                         await member.add_roles(role)
-                        # embed = discord.Embed(description = ctx.author.mention + " checked in with email " + email + ". Added Hacker role to " + ctx.author.display_name + ".", color=0x00ff00)
-                        # await channel.send(embed = embed)
-                        await channel.send(ctx.author.display_name + " checked in with email " + email + ". Added Hacker role to " + ctx.author.display_name + ".")
+                        embed = discord.Embed(description = ctx.author.mention + " checked in with email " + email + ". Added Hacker role to " + ctx.author.mention + ".", color=0x00ff00)
+                        await channel.send(embed = embed)
                         await ctx.author.send("Congratulations, Hacker! You are checked in.")
 
                     elif response.status == 409:
-                        await channel.send(ctx.author.display_name + " tried checking in again with email " + email)
+                        embed = discord.Embed(description = ctx.author.mention + " tried checking in again with email " + email, color=0xff0000)
+                        await channel.send(embed = embed)
                         await ctx.author.send("You are already checked in.")
 
+                    elif response.status == 403:
+                        embed = discord.Embed(description = ctx.author.mention + " tried checking in without RSVP.")
+                        await channel.send(embed = embed)
+                        await ctx.author.send("It looks like you haven't RSVPed. Please confirm your attendance through your acceptance or reminder email and then try checking in again.")
+
                     else:
-                        await channel.send(ctx.author.display_name + " failed to check in with email " + email)
-                        await ctx.author.send("Invalid email. Please check your spelling. If you are still experiencing problems checking in, please contact an organizer.")
+                        embed = discord.Embed(description = ctx.author.mention + " failed to check in with email " + email, color=0xff0000)
+                        await channel.send(embed = embed)
+                        await ctx.author.send("Invalid email. Please check if this is the email you registered with or check your spelling. If you are still experiencing problems checking in, please contact an organizer.")
                 
                 except Exception as e:
                     print(e)
-                    await channel.send(ctx.author.display_name + " failed to check in with email " + email)
-                    await ctx.author.send("Invalid email. Please check your spelling. If you are still experiencing problems checking in, please contact an organizer.")
+                    embed = discord.Embed(description = ctx.author.mention + " failed to check in with email " + email, color=0xff0000)
+                    await channel.send(embed = embed)
+                    await ctx.author.send("Invalid email. Please check if this is the email you registered with or check your spelling. If you are still experiencing problems checking in, please contact an organizer.")
 
     @commands.command()
     async def clearcheckin(self, ctx, email: str = ''):
@@ -70,6 +77,7 @@ class CheckIn(commands.Cog):
                     elif response.status == 409:
                         await ctx.author.send("This user is not checked in.")
                     else:
+                        print(response.status)
                         await ctx.author.send("Invalid email.")
                 
                 except Exception as e:
