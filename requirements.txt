@@ -1,4 +1,4 @@
-discord.py
+discord
 python-dotenv
 beautifulsoup4
 praw
