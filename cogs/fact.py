@@ -25,7 +25,7 @@ class Fact(commands.Cog):
 
                     soup = BeautifulSoup(await response.text(), 'html.parser')
                     fact = soup.find(id='z')
-                    print(fact.text.split('\n')[0])
+                    # print(fact.text.split('\n')[0])
 
                     embed = discord.Embed(color=0x7ce4f7, timestamp=ctx.message.created_at)
                     embed.add_field(name=f'Fact #{id}:', value=fact.text.split('\n')[0])

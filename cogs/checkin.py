@@ -44,7 +44,7 @@ class CheckIn(commands.Cog):
                         await ctx.author.send("You are already checked in.")
 
                     elif response.status == 403:
-                        embed = discord.Embed(description = ctx.author.mention + " tried checking in without RSVP.")
+                        embed = discord.Embed(description = ctx.author.mention + " tried checking in without RSVP, with email " + email)
                         await channel.send(embed = embed)
                         await ctx.author.send("It looks like you haven't RSVPed. Please confirm your attendance through your acceptance or reminder email and then try checking in again.")
 

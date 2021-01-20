@@ -24,9 +24,9 @@ logger.addHandler(handler)
 async def load(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
 
-# @bot.command()
-# async def unload(ctx, extension):
-#     bot.unload_extension(f'cogs.{extension}')
+@bot.command()
+async def unload(ctx, extension):
+    bot.unload_extension(f'cogs.{extension}')
 
 @bot.command()
 async def reload(ctx, extension):

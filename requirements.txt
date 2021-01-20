@@ -1,0 +1,5 @@
+discord.py
+python-dotenv
+beautifulsoup4
+praw
+pandas

@@ -7,9 +7,10 @@ class KnightHacks(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(aliases=['gh'])
     async def github(self, ctx):
-        await ctx.send("closed source for now bb")
+        # await ctx.send("closed source for now bb")
+        await ctx.send("Catch! --> <https://github.com/lienne/ModiBot>")
 
     @commands.command()
     async def where(self, ctx):
@@ -39,7 +40,8 @@ class KnightHacks(commands.Cog):
             '...let the dogs out! WHO WHO WHO WHO WHO!',
             '...stole the cookie from my cookie jar?',
             '...ate my ramen?!',
-            '...likes shorts? I like shorts!'
+            '...likes shorts? I like shorts!',
+            '...is gonna win KnightHacks 2020?!'
         ]
         
         response = random.choice(responses)
