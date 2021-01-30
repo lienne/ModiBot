@@ -9,7 +9,7 @@ class Coinflip(commands.Cog):
 
     @commands.command(aliases=['flip'])
     async def coinflip(self, ctx):
-        if ctx.author == bot.user:
+        if ctx.author == self.bot.user:
             return
 
         flip = random.randint(0, 1)

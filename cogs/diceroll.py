@@ -9,7 +9,7 @@ class Diceroll(commands.Cog):
 
     @commands.command(aliases=['roll', 'dice'])
     async def diceroll(self, ctx):
-        if ctx.author == bot.user:
+        if ctx.author == self.bot.user:
             return
 
         roll = random.randint(1,6)
