@@ -10,7 +10,7 @@ class EightBall(commands.Cog):
     @commands.command(aliases=['8ball'])
     # * is a wildcard: allows multiple arguments to be passed in
     async def eightball(self, ctx, *, question = None):
-        if ctx.author == bot.user:
+        if ctx.author == self.bot.user:
             return
     
         if question == None:
