@@ -6,7 +6,10 @@ from dotenv import load_dotenv
 from discord.ext import commands
 import builtins
 
-bot = commands.Bot(command_prefix = '!', activity = discord.Game('with the discord API!'))
+intents = discord.Intents.default()
+intents.members = True
+
+bot = commands.Bot(command_prefix = '!', activity = discord.Game('with the discord API!'), intents=intents)
 bot.remove_command('help')
 builtins.bot = bot
 

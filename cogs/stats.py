@@ -11,6 +11,8 @@ class Stats(commands.Cog):
         guild = ctx.guild
 
         online = sum(member.status is discord.Status.online or member.status is discord.Status.do_not_disturb or member.status is discord.Status.idle for member in guild.members)
+        # print(sum(member.status is discord.Status,online for member in guild.members))
+        print(online)
 
         embed = discord.Embed(color=0x7ce4f7, timestamp=ctx.message.created_at, title=f'Server Info - {guild.name}')
         

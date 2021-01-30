@@ -55,5 +55,9 @@ class KnightHacks(commands.Cog):
     async def REEE(self, ctx):
         await ctx.send("<:ultrareee:763241316451876896>")
 
+    @commands.command()
+    async def tutorial(self, ctx):
+        await ctx.send("<https://www.youtube.com/watch?v=1cuhODT6MGM>")
+
 def setup(bot):
     bot.add_cog(KnightHacks(bot))

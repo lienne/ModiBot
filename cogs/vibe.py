@@ -20,7 +20,7 @@ class Vibe(commands.Cog):
             target = ctx.author
 
         resp = await ctx.send('🔮 | Checking **{}**\'s vibe...'.format(target))
-        await asyncio.sleep(4.0)
+        await asyncio.sleep(2.5)
 
         hash = hashlib.sha256()
         hash.update(target.id.to_bytes(8, 'big'))
