@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-MSGID = os.getenv('MS_MSG_ID')
+MSGID = os.getenv('823687567206776862')
 
 class MsRoles(commands.Cog):
 
