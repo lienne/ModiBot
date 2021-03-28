@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-MSGID = os.getenv('KH_MSG_ID')
+MSGID = os.getenv('823687567206776862')
 
 class Roles(commands.Cog):
 
@@ -39,7 +39,6 @@ class Roles(commands.Cog):
         
         message_id = payload.message_id
         role = None
-
         if message_id == int(MSGID):
             guild_id = payload.guild_id
             guild = discord.utils.find(lambda g : g.id == guild_id, bot.guilds)

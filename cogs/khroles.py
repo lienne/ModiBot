@@ -4,8 +4,8 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-LANG_MSGID = os.getenv('LANG_ROLES_MSG_ID')
-OTHER_MSGID = os.getenv('OTHER_SKILLS_MSG_ID')
+LANG_MSGID = os.getenv('823687567206776862')
+OTHER_MSGID = os.getenv('823687567206776862')
 
 class KHRoles(commands.Cog):
 
