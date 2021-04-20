@@ -20,7 +20,9 @@ class MsRoles(commands.Cog):
         "👔" : "full time",
         "yeet" : "hangouters",
         "📙" : "returner",
-        "💻" : "thinkpad cultist"
+        "💻" : "thinkpad cultist",
+        "satya": "interviewing",
+        "🏙️": "Seattle Hangouter"
     }
 
     @commands.Cog.listener()
