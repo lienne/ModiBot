@@ -36,6 +36,32 @@ class Help(commands.Cog):
 
         await ctx.send(embed=embed)
         
+    @commands.command()
+    async def helpadmin(self, ctx):
+
+        embed = discord.Embed(color=0x5eeba0)
+        embed.set_author(name='Administration Commands')
+        embed.add_field(name='kick @member', value='Kicks a member from the server.\
+        In order for this to work, the bot must have Kick Member permissions.\
+        To use this command you must have Kick Members permission.', inline=False)
+        embed.add_field(name='ban @member', value='Bans a member from the server.\
+        In order for this to work, the bot must have Ban Member permissions.\
+        To use this command you must have Ban Members permission.', inline=False)
+        embed.add_field(name='unban <id>', value='Unbans a member from the server.\
+        This only works through unbanning via ID.\
+        In order for this to work, the bot must have Ban Member permissions.\
+        To use this command you must have Ban Members permissions.', inline=False)
+        embed.add_field(name='mute @member', value='Mutes a member.\
+        In order for this to work, the bot must have manage roles permissions.\
+        To use this command you must have manage roles permission.', inline=False)
+        embed.add_field(name='unmute @member', value='Unmutes a member.\
+        In order for this to work, the bot must have manage roles permissions.\
+        To use this command you must have manage roles permission.', inline=False)
+        embed.add_field(name='clear <value>', value='Clears specified number of messages.\
+        In order for this to work, the bot must have manage messages permissions.\
+        To use this command you must have manage messages permissions.', inline=False)
+
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Help(bot))
