@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands import MissingPermissions
 import asyncio
 
 class AdministrationCommands(commands.Cog):
@@ -9,7 +10,6 @@ class AdministrationCommands(commands.Cog):
 
     """
         TO DO:
-        Send "missing permissions" message when member who lacks permissions tries these commands.
         Log these events to logging channel.
         Find a better way to delete bot "deleted x msgs" confirmation msg.
     """
@@ -24,10 +24,25 @@ class AdministrationCommands(commands.Cog):
         In order for this to work, the bot must have manage roles permissions.
         To use this command you must have manage roles permission.
         """
+
         muted = discord.utils.get(ctx.guild.roles, name="Muted")
 
+        if muted is None:
+            return await ctx.send(f'This server does not have a Muted role.')
+
+        if member is ctx.author:
+            return await ctx.send("Why are you trying to mute yourself?")
+
         await member.add_roles(muted)
-        await ctx.send(f'{member.mention} has been muted.')
+        embed = discord.Embed(description = f'{member.mention} has been muted.', color=0xb9b9b9)
+        await ctx.send(embed=embed)
+
+    # Lacking Perms for Mute
+    @mute.error
+    async def mute_error(self, ctx, error):
+        if isinstance(error, MissingPermissions):
+            embed = discord.Embed(description = ":no_entry_sign: You don't have permission to use that command.", color=0xff0000)
+            await ctx.send(embed=embed)
 
     # Unmute
     @commands.command()
@@ -39,8 +54,25 @@ class AdministrationCommands(commands.Cog):
         In order for this to work, the bot must have manage roles permissions.
         To use this command you must have manage roles permission.
         """
-        await member.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))
-        await ctx.send(f'{member.mention} has been unmuted.')
+
+        muted = discord.utils.get(ctx.guild.roles, name="Muted")
+
+        if muted is None:
+            return await ctx.send(f'This server does not have a Muted role.')
+
+        if muted not in member.roles:
+            return await ctx.send(f'{member.mention} is not muted.')
+
+        await member.remove_roles(muted)
+        embed = discord.Embed(description = f'{member.mention} has been unmuted.', color=0xb9b9b9)
+        await ctx.send(embed=embed)
+
+    # Lacking Perms for Unmute
+    @unmute.error
+    async def unmute_error(self, ctx, error):
+        if isinstance(error, MissingPermissions):
+            embed = discord.Embed(description = ":no_entry_sign: You don't have permission to use that command.", color=0xff0000)
+            await ctx.send(embed=embed)
 
     # Kick
     @commands.command()
@@ -53,16 +85,39 @@ class AdministrationCommands(commands.Cog):
         To use this command you must have Kick Members permission.
         """
 
-        if reason is None:
-            reason = f'Action done by {ctx.author} (ID: {ctx.author.id})'
+        if not member:
+            return await ctx.send("You must specify a user.")
+
+        if member is ctx.author:
+            return await ctx.send("Why are you trying to kick yourself?")
 
         try:
+            """
+            This currently sends the user a DM even if the kicking fails.
+            The reason is that the bot cannot message a user directly if they don't share a server. So the message must be sent before kicking is attempted (and thus, before
+            the exception is caught).
+            This is true for banning as well.
+            """
+            if reason is None:
+                await member.send(f'You have been kicked from {ctx.guild}.')
+            else:
+                await member.send(f'You have been kicked from {ctx.guild}. Reason given: {reason}')
+
             await ctx.guild.kick(member, reason = reason)
-            embed = discord.Embed(description = ":white_check_mark: **%s** has been kicked."%member, color=0x00ff00)
-            # await ctx.send(f'Kicked {member}. {reason}.')
+            embed = discord.Embed(description = f':white_check_mark: {member.mention} has been kicked.', color=0x00ff00)
+
             return await ctx.send(embed=embed)
+
         except discord.Forbidden:
-            return await ctx.send("Are you trying to ban someone higher than the bot?")
+            await member.send(f'Kicking failed.')
+            return await ctx.send("Are you trying to kick someone higher than the bot?")
+
+    # Lacking Perms for Kick
+    @kick.error
+    async def kick_error(self, ctx, error):
+        if isinstance(error, MissingPermissions):
+            embed = discord.Embed(description = ":no_entry_sign: You don't have permission to use that command.", color=0xff0000)
+            await ctx.send(embed=embed)
 
     # Ban
     @commands.command()
@@ -75,19 +130,43 @@ class AdministrationCommands(commands.Cog):
         To use this command you must have Ban Members permission.
         """
 
-        if reason is None:
-            reason = f'Action done by {ctx.author} (ID:{ctx.author.id})'
+        # if reason is None:
+        #     reason = f'Action done by {ctx.author} (ID:{ctx.author.id})'
 
         if not member:
             return await ctx.send("You must specify a user.")
+
+        if member is ctx.author:
+            return await ctx.send("Why are you trying to ban yourself?")
         
         try:
-            await ctx.guild.ban(member, reason = reason)
-            embed = discord.Embed(description = ":white_check_mark: **%s** has been banned."%member, color=0x00ff00)
-            # await ctx.send(f'Banned {member}. {reason}.')
+            """
+            This currently sends the user a DM even if the ban fails.
+            The reason is that the bot cannot message a user directly if they don't share a server. So the message must be sent before banning is attempted (and thus, before
+            the exception is caught).
+            This is true for kicking as well.
+            """
+            if reason is None:
+                await member.send(f'You have been banned from {ctx.guild}.')
+            else:
+                await member.send(f'You have been banned from {ctx.guild}. Reason given: {reason}')
+
+            await ctx.guild.ban(member, delete_message_days = 0, reason = reason)
+            embed = discord.Embed(description = f':white_check_mark: {member.mention} has been banned.', color=0x00ff00)
+
             return await ctx.send(embed=embed)
+
         except discord.Forbidden:
+            await member.send(f'Banning failed.')
             return await ctx.send("Are you trying to ban someone higher than the bot?")
+
+    # Lacking Perms for Ban
+    @ban.error
+    async def ban_error(self, ctx, error):
+        if isinstance(error, MissingPermissions):
+            embed = discord.Embed(description = ':no_entry_sign: You don\'t have permission to use that command.', color=0xff0000)
+            await ctx.send(embed=embed)
+
 
     #Multiban
     @commands.command()
@@ -95,6 +174,7 @@ class AdministrationCommands(commands.Cog):
     @commands.has_permissions(ban_members = True)
     async def multiban(self, ctx, members : commands.Greedy[discord.Member], *, reason = None):
         """
+        Currently not working.
         Bans multiple members from the server.
         This only works through banning via ID.
         In order for this to work, the bot must have Ban Member permissions.
@@ -127,6 +207,7 @@ class AdministrationCommands(commands.Cog):
     @commands.has_permissions(ban_members=True)
     async def unban(self, ctx, userID, reason = None):
         """
+        Currently confirmation message isn't being sent.
         Unbans a member from the server.
         This only works through unbanning via ID.
         In order for this to work, the bot must have Ban Member permissions.
@@ -144,13 +225,21 @@ class AdministrationCommands(commands.Cog):
             user = discord.Object(id = userID)
             await ctx.guild.unban(user, reason = reason)
 
-            embed = discord.Embed(description = ":white_check_mark: **%s** has been unbanned."%userID.name, color = 0x00ff00)
+            embed = discord.Embed(description = f':white_check_mark: {user} has been unbanned.', color = 0x00ff00)
+            # embed.add_field(name='Reason:', value=f'{reason}', inline=False)
 
-            return await ctx.send(embed = embed)
+            return await ctx.send(embed=embed)
 
         except (NameError, discord.NotFound):
             embed = discord.Embed(description = ":x: Either this User ID is not valid or this user is not currently banned. Please input a valid user ID.", color = 0xff0000)
             return await ctx.send(embed = embed)
+
+    # Lacking Perms for Unban
+    @unban.error
+    async def unban_error(self, ctx, error):
+        if isinstance(error, MissingPermissions):
+            embed = discord.Embed(description = ":no_entry_sign: You don't have permission to use that command.", color=0xff0000)
+            await ctx.send(embed=embed)
 
     # Clear messages
     @commands.command()
@@ -163,8 +252,15 @@ class AdministrationCommands(commands.Cog):
         """
         await ctx.channel.purge(limit = amount + 1)
         await ctx.send(f'Deleted {amount} messages.')
-        await asyncio.sleep(1)
+        await asyncio.sleep(5)
         await ctx.channel.purge(limit = 1)
+
+    # Lacking Perms for Clear
+    @clear.error
+    async def clear_error(self, ctx, error):
+        if isinstance(error, MissingPermissions):
+            embed = discord.Embed(description = ":no_entry_sign: You don't have permission to use that command.", color=0xff0000)
+            await ctx.send(embed=embed)
 
 # Connect cog to bot
 def setup(bot):
