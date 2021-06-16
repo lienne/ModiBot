@@ -17,7 +17,7 @@ class MsRoles(commands.Cog):
         "🗺️" : "explore",
         "☕" : "intern",
         "📕" : "new grad",
-        "👔" : "full time",
+        "👔" : "full time 1yr+",
         "yeet" : "hangouters",
         "📙" : "returner",
         "💻" : "thinkpad cultist",
