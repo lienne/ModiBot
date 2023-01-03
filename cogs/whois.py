@@ -15,7 +15,7 @@ class Whois(commands.Cog):
 
         embed = discord.Embed(color=0x7ce4f7, timestamp=ctx.message.created_at, title=f'User Info - {member}')
 
-        embed.set_thumbnail(url=member.avatar_url)
+        embed.set_thumbnail(url=member.avatar)
         embed.set_footer(text=f'Requested by {ctx.author}')
 
         embed.add_field(name='ID: ', value=member.id, inline=False)
@@ -30,7 +30,7 @@ class Whois(commands.Cog):
         if not member:
             member = ctx.message.author
 
-        await ctx.send(member.avatar_url)
+        await ctx.send(member.avatar)
 
-def setup(bot):
-    bot.add_cog(Whois(bot))
+async def setup(bot):
+    await bot.add_cog(Whois(bot))

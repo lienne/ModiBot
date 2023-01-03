@@ -31,5 +31,5 @@ class Fact(commands.Cog):
                     embed.add_field(name=f'Fact #{id}:', value=fact.text.split('\n')[0])
                     await ctx.send(embed=embed)
 
-def setup(bot):
-    bot.add_cog(Fact(bot))
+async def setup(bot):
+    await bot.add_cog(Fact(bot))

@@ -59,5 +59,5 @@ class KnightHacks(commands.Cog):
     async def tutorial(self, ctx):
         await ctx.send("<https://www.youtube.com/watch?v=1cuhODT6MGM>")
 
-def setup(bot):
-    bot.add_cog(KnightHacks(bot))
+async def setup(bot):
+    await bot.add_cog(KnightHacks(bot))

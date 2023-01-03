@@ -127,5 +127,5 @@ class KHRoles(commands.Cog):
                 print('Role not found.')
 
 
-def setup(bot):
-    bot.add_cog(KHRoles(bot))
+async def setup(bot):
+    await bot.add_cog(KHRoles(bot))

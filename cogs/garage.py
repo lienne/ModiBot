@@ -13,5 +13,5 @@ class Garage(commands.Cog):
     async def garage(self, ctx):
         complete_url = 'https://secure.parking.ucf.edu/GarageCount/iframe.aspx'
 
-def setup(bot):
-    bot.add_cog(Garage(bot))
+async def setup(bot):
+    await bot.add_cog(Garage(bot))

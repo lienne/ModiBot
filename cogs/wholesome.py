@@ -2,13 +2,7 @@ import discord
 from discord.ext import commands
 import os
 from dotenv import load_dotenv
-import praw
-import urllib
-import argparse
-import pandas as pd
-import datetime
-from bs4 import BeautifulSoup
-import requests
+import asyncpraw
 import random
 
 load_dotenv()
@@ -25,30 +19,28 @@ class Wholesome(commands.Cog):
         
     @commands.command(aliases=['wholesome'])
     async def wholesomememes(self, ctx):
-        reddit = praw.Reddit(client_id = cid,
-                             client_secret = "Lta6PV6grSbsJfXWC1HtC93jmN4",
+        async with asyncpraw.Reddit(client_id = cid,
+                             client_secret = csecret,
                              username = reddit_username,
                              password = reddit_pass,
-                             user_agent = agent)
+                             user_agent = agent) as reddit:
 
-        subreddit = reddit.subreddit('wholesomememes')
-        posts = subreddit.hot(limit=50)
-        all_posts = []
+            subreddit = await reddit.subreddit('wholesomememes')
+            all_posts = []
+            async for submission in subreddit.hot(limit=50):
+                all_posts.append(submission)
+                
+            random_post = random.choice(all_posts)
 
-        for post in posts:
-            all_posts.append(post)
-            
-        random_post = random.choice(all_posts)
+            title = random_post.title
+            url = random_post.url
 
-        title = random_post.title
-        url = random_post.url
+            embed = discord.Embed(title = title, color=0x7ce4f7, timestamp=ctx.message.created_at)
+            embed.set_image(url = url)
+            embed.add_field(name="url", value=url)
+            embed.set_footer(text=f"Requested by {ctx.author.name}")
 
-        embed = discord.Embed(title = title, color=0x7ce4f7, timestamp=ctx.message.created_at)
-        embed.set_image(url = url)
-        embed.set_footer(text=f"Requested by {ctx.author.name}")
+            await ctx.send(embed=embed)
 
-        await ctx.send(embed=embed)
-
-
-def setup(bot):
-    bot.add_cog(Wholesome(bot))
+async def setup(bot):
+    await bot.add_cog(Wholesome(bot))

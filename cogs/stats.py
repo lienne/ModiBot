@@ -14,7 +14,7 @@ class Stats(commands.Cog):
 
         embed = discord.Embed(color=0x7ce4f7, timestamp=ctx.message.created_at, title=f'Server Info - {guild.name}')
         
-        embed.set_thumbnail(url=guild.icon_url)
+        embed.set_thumbnail(url=guild.icon)
         embed.set_footer(text=f'Requested by {ctx.author}')
 
         embed.add_field(name='Created on:', value=guild.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"), inline=False)
@@ -25,5 +25,5 @@ class Stats(commands.Cog):
 
         await ctx.send(embed=embed)
 
-def setup(bot):
-    bot.add_cog(Stats(bot))
+async def setup(bot):
+    await bot.add_cog(Stats(bot))

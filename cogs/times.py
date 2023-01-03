@@ -184,5 +184,5 @@ class Times(commands.Cog):
 
         await paginate_embed(self.bot, ctx.channel, embeds)
 
-def setup(bot):
-    bot.add_cog(Times(bot))
+async def setup(bot):
+    await bot.add_cog(Times(bot))

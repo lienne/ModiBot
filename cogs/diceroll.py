@@ -16,5 +16,5 @@ class Diceroll(commands.Cog):
 
         await ctx.send(f'{ctx.author.display_name}, you rolled a {roll}.')
 
-def setup(bot):
-    bot.add_cog(Diceroll(bot))
+async def setup(bot):
+    await bot.add_cog(Diceroll(bot))

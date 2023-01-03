@@ -10,5 +10,5 @@ class ShakespeareInsults(commands.Cog):
     # @commands.command()
     # async def insult(self, ctx):
         
-def setup(bot):
-    bot.add_cog(ShakespeareInsults(bot))
+async def setup(bot):
+    await bot.add_cog(ShakespeareInsults(bot))

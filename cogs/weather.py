@@ -16,7 +16,7 @@ class Weather(commands.Cog):
 
     @commands.command()
     async def weather(self, ctx, *, city: str = ''):
-        if city is '':
+        if city == '':
             await ctx.send('Please specify a city.')
             return
 
@@ -66,5 +66,5 @@ class Weather(commands.Cog):
                 await ctx.send('City not found.')
 
 
-def setup(bot):
-    bot.add_cog(Weather(bot))
+async def setup(bot):
+    await bot.add_cog(Weather(bot))

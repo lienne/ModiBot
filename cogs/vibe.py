@@ -9,7 +9,7 @@ class Vibe(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command('vibe', desc = ['Perform a vibe check.', '- Check your own vibe', '@user - Check <user>\'s vibe'],
+    @commands.command(aliases=['vibecheck'], desc = ['Perform a vibe check.', '- Check your own vibe', '@user - Check <user>\'s vibe'],
             min = 0, max = float('inf'), category = 'Fun')
     async def vibe(self, ctx, target : discord.Member = None):
 
@@ -37,8 +37,8 @@ class Vibe(commands.Cog):
             desc = ':no_entry_sign: **| Vibe check failed**'
 
         embed = discord.Embed(title = 'Vibe Check', description = desc, color = 0x7ce4f7)
-        embed.set_author(name = str(target), icon_url = target.avatar_url)
-        embed.set_footer(text = 'Checked by {}'.format(ctx.author), icon_url = ctx.author.avatar_url)
+        embed.set_author(name = str(target), icon_url = target.avatar)
+        embed.set_footer(text = 'Checked by {}'.format(ctx.author), icon_url = ctx.author.avatar)
 
         for vibe, value in zip(vibes, values):
             bars = int((value/100.0)*10)
@@ -48,5 +48,5 @@ class Vibe(commands.Cog):
         await resp.edit(content = '', embed = embed)
 
 # Connect cog to bot
-def setup(bot):
-    bot.add_cog(Vibe(bot))
+async def setup(bot):
+    await bot.add_cog(Vibe(bot))

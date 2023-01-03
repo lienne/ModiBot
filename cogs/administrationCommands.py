@@ -263,5 +263,5 @@ class AdministrationCommands(commands.Cog):
             await ctx.send(embed=embed)
 
 # Connect cog to bot
-def setup(bot):
-    bot.add_cog(AdministrationCommands(bot))
+async def setup(bot):
+    await bot.add_cog(AdministrationCommands(bot))

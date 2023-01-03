@@ -32,5 +32,5 @@ class EightBall(commands.Cog):
             response = random.choice(responses)
             await ctx.send(response)
 
-def setup(bot):
-    bot.add_cog(EightBall(bot))
+async def setup(bot):
+    await bot.add_cog(EightBall(bot))

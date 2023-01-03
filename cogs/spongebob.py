@@ -27,5 +27,5 @@ class Spongebob(commands.Cog):
 
         await ctx.channel.send(output, file=discord.File('cogs/img/mocking-spongebob.jpg'))
 
-def setup(bot):
-    bot.add_cog(Spongebob(bot))
+async def setup(bot):
+    await bot.add_cog(Spongebob(bot))

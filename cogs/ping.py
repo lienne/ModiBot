@@ -12,5 +12,5 @@ class Ping(commands.Cog):
         await ctx.send(f'Pong! {round(self.bot.latency * 1000)}ms')
 
 # Connect cog to bot
-def setup(bot):
-    bot.add_cog(Ping(bot))
+async def setup(bot):
+    await bot.add_cog(Ping(bot))

@@ -85,5 +85,5 @@ class CheckIn(commands.Cog):
                     await ctx.author.send("Invalid email.")
 
 
-def setup(bot):
-    bot.add_cog(CheckIn(bot))
+async def setup(bot):
+    await bot.add_cog(CheckIn(bot))

@@ -27,12 +27,9 @@ class Help(commands.Cog):
         embed.add_field(name='coinflip / flip', value='Flips a coin.')
         embed.add_field(name='diceroll / roll / dice', value='Rolls a die.')
         embed.add_field(name='eightball / 8ball', value='Gives you a prediction to a question.', inline=False)
-        embed.add_field(name='why', value='<:yeehaw:762850304781189161>')
         embed.add_field(name='who', value='who?')
-        embed.add_field(name='reee', value='reee')
-        embed.add_field(name='REEE', value='Ultra reee')
         embed.add_field(name='github / gh', value='Modibot Source Code', inline=False)
-        embed.add_field(name='tutorial', value='Video tutorial on how to write a discord bot in python.', inline=False)
+        embed.add_field(name='tutorial', value='Video tutorial on how to write a discord bot in python. Outdated!', inline=False)
 
         await ctx.send(embed=embed)
         
@@ -63,5 +60,5 @@ class Help(commands.Cog):
 
         await ctx.send(embed=embed)
 
-def setup(bot):
-    bot.add_cog(Help(bot))
+async def setup(bot):
+    await bot.add_cog(Help(bot))
