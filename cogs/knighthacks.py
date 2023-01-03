@@ -21,14 +21,14 @@ class KnightHacks(commands.Cog):
 
     @commands.command()
     async def how(self, ctx, *, text = None):
-        if text is not None and text.lower() == 'is lancelot':
+        if text is not None and text.lower() == 'is Modibot' or 'is Modibot?' or 'is ModiBot' or 'is ModiBot?':
             await ctx.send('awee thank you for asking!! <3')
 
         await ctx.send("<https://www.knighthacks.org/guide>")
 
     @commands.command()
     async def why(self, ctx):
-        await ctx.send("<:yeehaw:762850304781189161>")
+        await ctx.send("Everyone always asks why is Modibot, no one ever asks how is Modibot :pensive:")
 
     @commands.command()
     async def what(self, ctx):
@@ -46,14 +46,6 @@ class KnightHacks(commands.Cog):
         
         response = random.choice(responses)
         await ctx.send(response)
-
-    @commands.command()
-    async def reee(self, ctx):
-        await ctx.send("<:reeeee:763240777525493850>")
-
-    @commands.command()
-    async def REEE(self, ctx):
-        await ctx.send("<:ultrareee:763241316451876896>")
 
     @commands.command()
     async def tutorial(self, ctx):

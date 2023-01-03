@@ -1,5 +1,5 @@
 discord
 python-dotenv
 beautifulsoup4
-praw
+asyncpraw
 pandas
