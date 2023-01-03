@@ -16,7 +16,7 @@ class Help(commands.Cog):
         # embed.add_field(name='', value='', inline=False)
         embed.add_field(name='ping', value='Pong! With latency.', inline=False)
         embed.add_field(name='server / serverstats / stats / info', value='Displays server info.', inline=False)
-        embed.add_field(name='vibe', value='Reads a user\'s vibe. If no user is tagged, reads the author\'s vibe.', inline=False)
+        embed.add_field(name='vibe / vibecheck', value='Reads a user\'s vibe. If no user is tagged, reads the author\'s vibe.', inline=False)
         embed.add_field(name='whois', value='Displays the specified user\'s info. If no user is tagged, displays the author\'s info.')
         embed.add_field(name='pfp', value='Displays the specified user\'s profile picture.')
         embed.add_field(name='weather', value='Displays specified city\'s current weather.', inline=False)
