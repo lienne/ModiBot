@@ -18,7 +18,11 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def why(self, ctx):
-        await ctx.send("Everyone always asks why is Modibot, no one ever asks how is Modibot :pensive:")
+        await ctx.send("Everyone always asks why is Clippy, no one ever asks how is Clippy :pensive:")
+
+    @commands.command()
+    async def how(self, ctx):
+        await ctx.send("Good, thanks, how about you? ^_^")
 
     @commands.command()
     async def what(self, ctx):
