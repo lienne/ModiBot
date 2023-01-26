@@ -23,13 +23,15 @@ class Help(commands.Cog):
         embed.add_field(name='wholesome', value='Displays a wholesome meme.', inline=False)
         embed.add_field(name='cat', value='Displays a random cat.')
         embed.add_field(name='dog', value='Displays a random dog.')
+        embed.add_field(name='tic tac toe', value='Play a game of tic tac toe.')
         embed.add_field(name='fact', value='Displays a random fact.', inline=False)
         embed.add_field(name='coinflip / flip', value='Flips a coin.')
         embed.add_field(name='diceroll / roll / dice', value='Rolls a die.')
         embed.add_field(name='eightball / 8ball', value='Gives you a prediction to a question.', inline=False)
+        embed.add_field(name='shakespeare insult', value='Insult your friends shakespeare style.')
         embed.add_field(name='who', value='who?')
         embed.add_field(name='github / gh', value='Modibot Source Code', inline=False)
-        embed.add_field(name='tutorial', value='Video tutorial on how to write a discord bot in python. Outdated!', inline=False)
+        embed.add_field(name='tutorial', value='Video tutorial on how to write a discord bot in python. A bit outdated!', inline=False)
 
         await ctx.send(embed=embed)
         
